@@ -7,10 +7,11 @@
 #ifndef PROJECT_CELLS_H
 #define PROJECT_CELLS_H
 
-typedef struct Cells {
+/*typedef struct Cells {
     Cell **cells;
 }Cells;
 Cells *createCells(int height);
 Cell* cells_getAt(int index);
-void cells_AddAt(Cell* cell, int index);
+void cells_AddAt(Cell* cell, int index);*/
+
 #endif //PROJECT_CELLS_H

@@ -3,7 +3,7 @@
 //
 
 #include "Cells.h"
-Cells *createCells(int height){
-    Cells* newCells = (Cells *) malloc(sizeof (Cells*));
-    newCells->cells = (Cell*)malloc(sizeof());
-}
+//Cells *createCells(int height){
+  //  Cells* newCells = (Cells *) malloc(sizeof (Cells*));
+    //newCells->cells = (Cell*)malloc(sizeof());
+//}

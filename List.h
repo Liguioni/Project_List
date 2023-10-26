@@ -9,9 +9,9 @@
 #define PROJECT_LIST_H
 
 typedef struct List {
-    Cells heads;
+    Cells *heads;
 } List;
 
-List *createList(int height);
+List *createList(int maxLevel);
 
 #endif //PROJECT_LIST_H
