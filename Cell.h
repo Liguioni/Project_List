@@ -8,11 +8,9 @@
 #ifndef PROJECT_CELL_H
 #define PROJECT_CELL_H
 
-#include "Cells.h"
-
 typedef struct Cell {
     int value;
-    struct Cells *nexts;
+    struct Cells *next;
 } Cell;
 
 typedef struct Cells {
@@ -29,5 +27,13 @@ Cell *cellsGetAt(int index, Cells *cells);
 void cellsAddAt(Cells *cells, Cell *cell, int index);
 
 int getNbLevels(Cell *cell);
+
+void displayCellsSimply(Cell *cell, int level);
+
+void displayCellsAligned(Cell *cell, int level);
+
+void deleteOneLevel(int level);
+
+void deleteCell(Cell *cell);
 
 #endif //PROJECT_CELL_H
