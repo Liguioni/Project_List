@@ -28,7 +28,7 @@ void displayOneLevelOfListSimply(List *list, int level) {
     }
 }
 
-// affichage d'un niveau de la List aligné
+// affichage d'un niveau de la List alignée
 void displayOneLevelOfListAligned(List *list, int level) {
     if (level >= 0 && level < list->heads->nbLevel) {
         printf("[list head_%d @-] ", level);
@@ -36,15 +36,47 @@ void displayOneLevelOfListAligned(List *list, int level) {
     }
 }
 
-// affichage de la List Simplement
+// affichage de la List simplement
 void displayListSimply(List *list) {
     for (int i = 0; i < list->heads->nbLevel; i++) {
         displayOneLevelOfListSimply(list, i);
     }
 }
 
+// affichage de la List alignée
 void displayListAligned(List *list) {
     for (int i = 0; i < list->heads->nbLevel; i++) {
         displayOneLevelOfListAligned(list, i);
     }
+}
+
+// suppression d'une Cell d'une List
+void deleteCellFromList(List *list, Cell *cell) {
+    Cell *tmp = list->heads->cells[0];
+    Cell *previous = NULL;
+    while (tmp->value != cell->value || tmp != NULL) {
+        previous = tmp;
+        tmp = tmp->next->cells[0];
+    }
+    if (tmp != NULL) {
+        for (int i = 0; i < tmp->next->nbLevel; i++) {
+            previous->next->cells[i] = tmp->next->cells[i];
+        }
+        deleteCell(tmp);
+    }
+}
+
+// suppression de la List
+void deleteList(List *list) {
+    while (list->heads->cells[0] != NULL) {
+        for (int i = 0; i < list->heads->nbLevel; i++) {
+            list->heads->cells[i] = list->heads->cells[i]->next->cells[i];
+        }
+        deleteCellFromList(list, list->heads->cells[0]);
+    }
+    for (int i = 0; i < list->heads->nbLevel; i++) {
+        free(list->heads->cells[i]);
+    }
+    free(list->heads);
+    free(list);
 }

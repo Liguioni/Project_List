@@ -4,6 +4,7 @@
 
 #include "Cell.h"
 
+
 // création d'un tableau de Cell
 Cells *createCells(int height) {
     Cells *newCells = (Cells *) malloc(sizeof(Cells));
@@ -61,4 +62,13 @@ void displayCellsAligned(Cell *cell, int level) {
     } else {
         printf(" NULL\n");
     }
+}
+
+// suppression d'une Cell
+void deleteCell(Cell *cell) {
+    for (int i = 0; i < cell->next->nbLevel; i++) {
+        free(cell->next->cells[i]);
+    }
+    free(cell->next);
+    free(cell);
 }
