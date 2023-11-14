@@ -14,7 +14,7 @@ Cells *createCells(int height) {
 }
 
 // création d'une Cell
-Cell *createCell(int value, int height) {
+Cell *createCell(int height, int value) {
     Cell *newCell = (Cell *) malloc(sizeof(Cell));
     newCell->next = createCells(height);
     newCell->value = value;
@@ -39,29 +39,6 @@ void cellsAddAt(Cells *cells, Cell *cell, int index) {
 // récupération de la taille du tableau de Cell d'une Cell
 int getNbLevel(Cell *cell) {
     return cell->next->nbLevel;
-}
-
-// affichage des Cell simplement
-void displayCellsSimply(Cell *cell, int level) {
-    if (cell != NULL) {
-        printf(" [ %d|@-] ", cell->value);
-        displayCellsSimply(cell->next->cells[level], level);
-    } else {
-        printf(" NULL\n");
-    }
-}
-
-// affichage des Cell alignées
-void displayCellsAligned(Cell *cell, int level) {
-    if (cell != NULL) {
-        if (level < cell->next->nbLevel && cell->next->cells[level] != NULL) {
-            printf(" [ %d|@-]", cell->value);
-        } else {
-            printf("----------");
-        }
-    } else {
-        printf(" NULL\n");
-    }
 }
 
 // suppression d'une Cell

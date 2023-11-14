@@ -28,10 +28,6 @@ void cellsAddAt(Cells *cells, Cell *cell, int index);
 
 int getNbLevels(Cell *cell);
 
-void displayCellsSimply(Cell *cell, int level);
-
-void displayCellsAligned(Cell *cell, int level);
-
 void deleteCell(Cell *cell);
 
 #endif //PROJECT_CELL_H
