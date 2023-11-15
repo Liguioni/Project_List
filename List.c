@@ -12,10 +12,11 @@ List *createList(int maxLevel) {
 }
 
 // insertion d'une Cell dans une List
-void insertCellInList(Cell *cell, List *list) {
-    if (cell->next->nbLevel <= list->heads->nbLevel) {
-        for (int i = 0; i < cell->next->nbLevel; i++) {
-            list->heads->cells[i] = cell->next->cells[i];
+void insertCellInListFromHead(Cell *cell, List *list) {
+    for (int i = 0; i < cell->next->nbLevel; i++) {
+        if (cell->next->nbLevel <= list->heads->nbLevel) {
+            cell->next->cells[i] = list->heads->cells[i];
+            list->heads->cells[i] = cell;
         }
     }
 }
@@ -23,16 +24,32 @@ void insertCellInList(Cell *cell, List *list) {
 // affichage d'un niveau de la List simplement
 void displayOneLevelOfListSimply(List *list, int level) {
     if (level >= 0 && level < list->heads->nbLevel) {
-        printf("[list head_%d @-] ", level);
-        displayCellsSimply(list->heads->cells[level], level);
+        printf("[list head_%d @-]", level);
+        Cell *cell = list->heads->cells[level];
+        while (cell != NULL) {
+            printf("-->[ %d|@-]", cell->value);
+            cell = cell->next->cells[level];
+        }
+        printf("-->NULL\n");
     }
 }
 
 // affichage d'un niveau de la List alignée
 void displayOneLevelOfListAligned(List *list, int level) {
     if (level >= 0 && level < list->heads->nbLevel) {
-        printf("[list head_%d @-] ", level);
-        displayCellsAligned(list->heads->cells[0], level);
+        printf("[list head_%d @-]", level);
+        Cell *nextCell = list->heads->cells[0];
+        Cell *prevCell = NULL;
+        while (nextCell != NULL) {
+            if (nextCell->next->cells[level] == NULL && prevCell == NULL) {
+                printf("-----------");
+            } else {
+                printf("-->[ %d|@-]", nextCell->value);
+                prevCell = nextCell;
+            }
+            nextCell = nextCell->next->cells[0];
+        }
+        printf("-->NULL\n");
     }
 }
 
