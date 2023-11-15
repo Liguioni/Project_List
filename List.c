@@ -12,10 +12,11 @@ List *createList(int maxLevel) {
 }
 
 // insertion d'une Cell dans une List
-void insertCellInList(Cell *cell, List *list) {
-    if (cell->next->nbLevel <= list->heads->nbLevel) {
-        for (int i = 0; i < cell->next->nbLevel; i++) {
-            list->heads->cells[i] = cell->next->cells[i];
+void insertCellInListFromHead(Cell *cell, List *list) {
+    for (int i = 0; i < cell->next->nbLevel; i++) {
+        if (cell->next->nbLevel <= list->heads->nbLevel) {
+            cell->next->cells[i] = list->heads->cells[i];
+            list->heads->cells[i] = cell;
         }
     }
 }

@@ -13,7 +13,7 @@ typedef struct List {
 
 List *createList(int maxLevel);
 
-void insertCellInList(Cell *cell, List *list);
+void insertCellInListFromHead(Cell *cell, List *list);
 
 void displayOneLevelOfListSimply(List *list, int level);
 
