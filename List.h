@@ -3,7 +3,6 @@
 //
 
 #include "Cell.h"
-#include "Cells.h"
 
 #ifndef PROJECT_LIST_H
 #define PROJECT_LIST_H
@@ -13,5 +12,19 @@ typedef struct List {
 } List;
 
 List *createList(int maxLevel);
+
+void insertCellInListFromHead(Cell *cell, List *list);
+
+void displayOneLevelOfListSimply(List *list, int level);
+
+void displayOneLevelOfListAligned(List *list, int level);
+
+void displayListSimply(List *list);
+
+void displayListAligned(List *list);
+
+void deleteCellFromList(List *list, Cell *cell);
+
+void deleteList(List *list);
 
 #endif //PROJECT_LIST_H
