@@ -13,7 +13,7 @@ typedef struct List {
 
 List *createList(int maxLevel);
 
-void insertCellInList(Cell *cell, List *list);
+void insertCellInListFromHead(Cell *cell, List *list);
 
 void displayOneLevelOfListSimply(List *list, int level);
 
@@ -22,5 +22,9 @@ void displayOneLevelOfListAligned(List *list, int level);
 void displayListSimply(List *list);
 
 void displayListAligned(List *list);
+
+void deleteCellFromList(List *list, Cell *cell);
+
+void deleteList(List *list);
 
 #endif //PROJECT_LIST_H
