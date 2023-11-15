@@ -23,4 +23,8 @@ void displayListSimply(List *list);
 
 void displayListAligned(List *list);
 
+void deleteCellFromList(List *list, Cell *cell);
+
+void deleteList(List *list);
+
 #endif //PROJECT_LIST_H
