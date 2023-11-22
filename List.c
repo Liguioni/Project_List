@@ -15,10 +15,40 @@ List *createList(int maxLevel) {
 void insertCellInListFromHead(Cell *cell, List *list) {
     for (int i = 0; i < cell->next->nbLevel; i++) {
         if (cell->next->nbLevel <= list->heads->nbLevel) {
-            cell->next->cells[i] = list->heads->cells[i];
-            list->heads->cells[i] = cell;
+        cell->next->cells[i] = list->heads->cells[i];
+        list->heads->cells[i] = cell;
         }
     }
+}
+
+void insertCellInListCresently(Cell *cell,List*list){
+    if((list->heads->cells[0]==NULL)||(cell->value<list->heads->cells[0]->value)){
+        insertCellInListFromHead(cell,list);
+        return;
+    }
+    Cell *temp=list->heads->cells[0];
+    while((temp->next->cells[0]!=NULL)&&(cell->value >temp->next->cells[0]->value)){
+
+        temp=temp->next->cells[0];
+
+    }
+    for(int i=0;i<cell->next->nbLevel;i++){
+
+        cell->next->cells[i]=temp->next->cells[i];
+        temp->next->cells[i]=cell;
+    }
+    /*for(int i=0;i<cell->next->nbLevel;i++){
+        if (cell->next->nbLevel <= list->heads->nbLevel){
+            cell->next->cells[i]= list->heads->cells[i];
+            }
+        if(cell->value > cell->next->cells[i]->value){
+            cell->next->cells[i]=cell->next->cells[0]->next->cells[i];
+            list->heads->cells[i]=cell;
+        }
+        else{
+            list->heads->cells[i]=cell;
+        }
+    }*/
 }
 
 // affichage d'un niveau de la List simplement
