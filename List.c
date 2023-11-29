@@ -3,6 +3,13 @@
 //
 
 #include "List.h"
+#include <math.h>
+
+Cell *searchValueAtOneLevel(Cell *cell, int value, int level);
+
+Cell *searchDichotomously(int value, int level, List *list, Cell *comparison);
+
+Cell *searchPrevious(Cell *head, int value, int level);
 
 // création d'une List
 List *createList(int maxLevel) {
@@ -126,4 +133,82 @@ void deleteList(List *list) {
     }
     free(list->heads);
     free(list);
+}
+
+//création d'une List de hauteur n et de longueur 2^n - 1
+List *createDichotomousList(int level) {
+    List *dichoList = createList(level);
+    for (int i = (int)pow(2, level) - 1; i >0; i--) {
+        int j = level-1;
+        while (j >= 0 && i % (int)pow(2, j) != 0) {
+            j--;
+        }
+        Cell *newCell = createCell(j+1, i);
+        insertCellInListFromHead(newCell, dichoList);
+    }
+    return dichoList;
+}
+
+//recherche d'une valeur sur un niveau à partir d'une List
+Cell *searchAtOneLevelOfList(List *list, int value, int level) {
+    if (list != NULL || level >= 0) {
+        return searchValueAtOneLevel(list->heads->cells[level], value, level);
+    } else {
+        return NULL;
+    }
+}
+
+// recherche d'une valeur sur un niveau
+Cell *searchValueAtOneLevel(Cell *cell, int value, int level) {
+    if (cell != NULL) {
+        if (cell->value != value) {
+            searchValueAtOneLevel(cell->next->cells[level], value, level);
+        } else {
+            return cell;
+        }
+    } else {
+        return NULL;
+    }
+}
+
+//recherche dichotomique à partir d'une List
+Cell *searchDichotomouslyFromList(List *list, int value){
+    if (list != NULL) {
+        int level = (list->heads->nbLevel) - 1;
+        return searchDichotomously(value, level, list, list->heads->cells[level]);
+    } else {
+        return NULL;
+    }
+}
+
+Cell *searchDichotomously(int value, int level, List *list, Cell *comparison) {
+    if (level < 0) {
+        return NULL;
+    } else {
+        if (comparison->value == value) {
+            return comparison;
+        } else {
+            if (level != 0) {
+                if (comparison->value > value) {
+                    Cell *previous = searchPrevious(list->heads->cells[level - 1], comparison->value, level - 1);
+                    searchDichotomously(value, level - 1, list, previous);
+                } else {
+                    searchDichotomously(value, level - 1, list, comparison->next->cells[level-1]);
+                }
+            } else {
+                return NULL;
+            }
+        }
+    }
+}
+
+//recherche de la Cell précédente pour un niveau
+Cell *searchPrevious(Cell *head, int value, int level) {
+    Cell *tmp = head;
+    Cell *previous = NULL;
+    while (tmp->value != value) {
+        previous = tmp;
+        tmp = tmp->next->cells[level];
+    }
+    return previous;
 }

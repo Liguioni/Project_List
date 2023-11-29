@@ -27,4 +27,10 @@ void deleteCellFromList(List *list, Cell *cell);
 
 void deleteList(List *list);
 
+List *createDichotomousList(int level);
+
+Cell *searchAtOneLevelOfList(List *list, int value, int level);
+
+Cell *searchDichotomouslyFromList(List *list, int value);
+
 #endif //PROJECT_LIST_H
