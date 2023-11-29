@@ -1,16 +1,16 @@
 #include "Cell.h"
 #include "List.h"
 
+
+
 int main() {
-    List *list = createList(5);
+    List *list = createDichotomousList(3);
     displayListSimply(list);
-    Cell *cell0 = createCell(5, 1);
-    Cell *cell1 = createCell(5, 2);
-    cellsAddAt(cell0->next, cell1, 0);
-    insertCellInListFromHead(cell0, list);
-    displayListSimply(list);
-    deleteCell(cell0);
-    deleteCell(cell1);
-    deleteList(list);
+    Cell *cell = searchDichotomouslyFromList(list, 8);
+    if (cell != NULL) {
+        printf("Cell presente\n");
+    } else {
+        printf("Cell introuvable\n");
+    }
     return 0;
 }
