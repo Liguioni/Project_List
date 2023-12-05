@@ -27,10 +27,10 @@ void deleteCellFromList(List *list, Cell *cell);
 
 void deleteList(List *list);
 
-List *createDichotomousList(int level);
+void insertCellInListCresently(Cell *cell,List*list);
 
-Cell *searchAtOneLevelOfList(List *list, int value, int level);
+void insertCellInListCresentlyByStr(Cell *cell,List*list);
 
-Cell *searchDichotomouslyFromList(List *list, int value);
+int strComparison(Cell *cell,List *list,int);
 
 #endif //PROJECT_LIST_H
