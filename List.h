@@ -3,6 +3,7 @@
 //
 
 #include "Cell.h"
+#include <math.h>
 
 #ifndef PROJECT_LIST_H
 #define PROJECT_LIST_H

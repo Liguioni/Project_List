@@ -108,13 +108,20 @@ void displayListAligned(List *list) {
 void deleteCellFromList(List *list, Cell *cell) {
     Cell *tmp = list->heads->cells[0];
     Cell *previous = NULL;
-    while (tmp->value != cell->value || tmp != NULL) {
+    while ((tmp->value != cell->value) || (tmp != NULL)) {
         previous = tmp;
         tmp = tmp->next->cells[0];
     }
-    if (tmp != NULL) {
-        for (int i = 0; i < tmp->next->nbLevel; i++) {
+    if (tmp != NULL && previous != NULL) {
+        int level = fmin(tmp->next->nbLevel, previous->next->nbLevel);
+        for (int i = 0; i < level; i++) {
             previous->next->cells[i] = tmp->next->cells[i];
+        }
+        deleteCell(tmp);
+    }
+    if (previous == NULL) {
+        for (int i = 0; i < tmp->next->nbLevel; i++) {
+            list->heads->cells[i] = tmp->next->cells[i];
         }
         deleteCell(tmp);
     }
@@ -122,14 +129,22 @@ void deleteCellFromList(List *list, Cell *cell) {
 
 // suppression de la List
 void deleteList(List *list) {
+    Cell *tmp = NULL;
+    Cell *previous;
     while (list->heads->cells[0] != NULL) {
-        for (int i = 0; i < list->heads->nbLevel; i++) {
-            list->heads->cells[i] = list->heads->cells[i]->next->cells[i];
+        previous = NULL;
+        tmp = list->heads->cells[0];
+        while (tmp->next->cells[0] != NULL){
+            previous = tmp;
+            tmp = tmp->next->cells[0];
         }
-        deleteCellFromList(list, list->heads->cells[0]);
-    }
-    for (int i = 0; i < list->heads->nbLevel; i++) {
-        free(list->heads->cells[i]);
+        free(tmp->next);
+        free(tmp);
+        if (previous != NULL) {
+            previous->next->cells[0] = NULL;
+        } else {
+            list->heads->cells[0] = NULL;
+        }
     }
     free(list->heads);
     free(list);
