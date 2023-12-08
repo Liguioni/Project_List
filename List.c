@@ -46,31 +46,32 @@ void insertCellInListCresentlyByStr(Cell *cell,List*list){
         return;
     }
     Cell *temp=list->heads->cells[0];
-    while((temp->next->cells[0]!=NULL)&&(cell->nom_prenom[0]>temp->next->cells[0]->nom_prenom[0])){
-        temp=temp->next->cells[0];
-    }
-    for(int i=0;i<cell->next->nbLevel;i++){
-
-        cell->next->cells[i]=temp->next->cells[i];
-        temp->next->cells[i]=cell;
-    }
-}
-int strComparison(Cell *cell,List *list,int value){
-    Cell *temp= list->heads->cells[0];
-    if(cell->nom_prenom[value]==list->heads->cells[0]->nom_prenom[value]){
-        strComparison(cell,list,value+1);
-    }else{
-        if ((cell->nom_prenom[0]>temp->next->cells[0]->nom_prenom[0])){
-            return 0;
-        }else{
-            //temp = temp->heads->cells[0];
-            //return strComparison(cell,temp,value);
-            return 1;
+    int control=0;
+    if(cell->nom_prenom[0]!=temp->nom_prenom[0]){
+        while((temp->next->cells[0]!=NULL)&&(cell->nom_prenom[0]>temp->next->cells[0]->nom_prenom[0])){
+            temp=temp->next->cells[0];
         }
-
+        control=3;
+    }else if((cell->nom_prenom[1]!=temp->nom_prenom[1])/*&&(cell->nom_prenom[0]==temp->nom_prenom[0])*/){
+        control=2;
+        while((temp->next->cells[0]!=NULL)&&(cell->nom_prenom[1]>temp->nom_prenom[1])){
+            temp=temp->next->cells[0];
+        }
+    }else if((cell->nom_prenom[2]!=temp->nom_prenom[2])&&(cell->nom_prenom[1]==temp->nom_prenom[1])&&(cell->nom_prenom[0]==temp->nom_prenom[0])){
+        control=1;
+            while((temp->next->cells[0]!=NULL)&&(cell->nom_prenom[2]>temp->next->cells[0]->nom_prenom[2])){
+                temp=temp->next->cells[0];
+            }
     }
+    cell->next->cells[0]=temp->next->cells[0];
+    temp->next->cells[0]=cell;
+    cell->next->cells[control]=temp->next->cells[control];
+    temp->next->cells[control]=cell;
+
+
 
 }
+
 // affichage d'un niveau de la List simplement
 void displayOneLevelOfListSimply(List *list, int level) {
     if (level >= 0 && level < list->heads->nbLevel) {

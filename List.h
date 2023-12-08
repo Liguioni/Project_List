@@ -31,6 +31,6 @@ void insertCellInListCresently(Cell *cell,List*list);
 
 void insertCellInListCresentlyByStr(Cell *cell,List*list);
 
-int strComparison(Cell *cell,List *list,int);
+
 
 #endif //PROJECT_LIST_H

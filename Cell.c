@@ -10,6 +10,7 @@ Cells *createCells(int height) {
     Cells *newCells = (Cells *) malloc(sizeof(Cells));
     newCells->cells = (Cell **) calloc(height, sizeof(Cell *));
     newCells->nbLevel = height;
+
     return newCells;
 }
 
@@ -18,6 +19,9 @@ Cell *createCell(int height, int value) {
     Cell *newCell = (Cell *) malloc(sizeof(Cell));
     newCell->next = createCells(height);
     newCell->value = value;
+    newCell->meeting=createMeetingList();
+    printf("entrez le nom :");
+    scanString(newCell->nom_prenom);
     return newCell;
 }
 
@@ -46,6 +50,9 @@ void deleteCell(Cell *cell) {
     for (int i = 0; i < cell->next->nbLevel; i++) {
         free(cell->next->cells[i]);
     }
+    free(cell->meeting);
     free(cell->next);
     free(cell);
+
 }
+

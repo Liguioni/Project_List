@@ -4,13 +4,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "string.h"
+#include "Meeting.h"
 #ifndef PROJECT_CELL_H
 #define PROJECT_CELL_H
 
 typedef struct Cell {
     int value;
+    char nom_prenom[100];
     struct Cells *next;
+    struct MeetingList *meeting;
 } Cell;
 
 typedef struct Cells {
