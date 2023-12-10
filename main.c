@@ -7,27 +7,38 @@
 int main() {
     List *list;
     Cell *cell;
-    for (int i = 1; i <= 50; i++) {
+    FILE *log_file = fopen("log100000.txt","w");
+    char format[] = "%d\t%s\t%s\n" ;
+    char *time_lvl0;
+    char *time_all_levels;
+    for (int i = 7; i <= 16; i++) {
+        printf("niveau %d :\n", i);
+        printf("Recherche classique :\n");
         list = createDichotomousList(i);
-        int value = 5558889;
         startTimer();
-        cell = searchDichotomouslyFromList(list, value);
-        displayTime();
-        stopTimer();
-        if (i < 16) {
-            startTimer();
+        for (int j = 0; j < 100000; j++) {
+            srand((unsigned int)time);
+            int value = rand()%(int)pow(2, i);
             cell = searchAtOneLevelOfList(list, value, 0);
-            displayTime();
-            stopTimer();
         }
-        printf("puissance %d\n", i);
-        if (cell != NULL) {
-            printf("%d : Cell presente\n", value);
-        } else {
-            printf("%d : Cell introuvable\n", value);
+        stopTimer();
+        time_lvl0 = getTimeAsString();
+        displayTime();
+        printf("\n");
+        printf("Recherche dichotomique :\n");
+        startTimer();
+        for (int j = 0; j < 100000; j++) {
+            srand((unsigned int)time);
+            int value = rand()%(int)pow(2, i);
+            cell = searchDichotomouslyFromList(list, value);
         }
+        stopTimer();
+        time_all_levels = getTimeAsString();
+        displayTime();
+        fprintf(log_file,format,i,time_lvl0, time_all_levels);
         printf("\n\n");
         deleteList(list);
     }
+    fclose(log_file);
     return 0;
 }
