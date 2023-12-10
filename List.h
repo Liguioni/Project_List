@@ -19,9 +19,9 @@ void displayOneLevelOfListSimply(List *list, int level);
 
 void displayOneLevelOfListAligned(List *list, int level);
 
-void displayListSimply(List *list);
+void displayListSimplyInt(List *list);
 
-void displayListAligned(List *list);
+void displayListAlignedInt(List *list);
 
 void deleteCellFromList(List *list, Cell *cell);
 
@@ -31,6 +31,6 @@ void insertCellInListCresently(Cell *cell,List*list);
 
 void insertCellInListCresentlyByStr(Cell *cell,List*list);
 
-
+void functionMain();
 
 #endif //PROJECT_LIST_H

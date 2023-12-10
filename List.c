@@ -28,57 +28,68 @@ void insertCellInListCresently(Cell *cell,List*list){
     }
     Cell *temp=list->heads->cells[0];
     while((temp->next->cells[0]!=NULL)&&(cell->value > temp->next->cells[0]->value)){
-
         temp=temp->next->cells[0];
 
     }
     for(int i=0;i<cell->next->nbLevel;i++){
-
         cell->next->cells[i]=temp->next->cells[i];
         temp->next->cells[i]=cell;
     }
 }
 void insertCellInListCresentlyByStr(Cell *cell,List*list){
-    //Cell* tempListcomp=list->heads->cells[0];
+
     if((list->heads->cells[0]==NULL)||(cell->nom_prenom[0]<list->heads->cells[0]->nom_prenom[0])) {
         insertCellInListFromHead(cell, list);
         printf("ajout en tete \n ");
         return;
     }
     Cell *temp=list->heads->cells[0];
-    int control=0;
-    if(cell->nom_prenom[0]!=temp->nom_prenom[0]){
-        while((temp->next->cells[0]!=NULL)&&(cell->nom_prenom[0]>temp->next->cells[0]->nom_prenom[0])){
+    if((cell->nom_prenom[0]!=temp->nom_prenom[0])){
+        while ((cell->nom_prenom[0]<temp->nom_prenom[0])&&(temp->next->cells[0]!=NULL)){
             temp=temp->next->cells[0];
         }
-        control=3;
-    }else if((cell->nom_prenom[1]!=temp->nom_prenom[1])/*&&(cell->nom_prenom[0]==temp->nom_prenom[0])*/){
-        control=2;
-        while((temp->next->cells[0]!=NULL)&&(cell->nom_prenom[1]>temp->nom_prenom[1])){
+        for(int i=0;i<4;i++){
+            cell->next->cells[i]=temp->next->cells[i];
+            temp->next->cells[i]=cell;
+        }
+
+        return;
+    }else if(cell->nom_prenom[1]!=temp->nom_prenom[1]){
+        while ((cell->nom_prenom[1]<temp->nom_prenom[1])&&(temp->next->cells[0]!=NULL)){
             temp=temp->next->cells[0];
         }
-    }else if((cell->nom_prenom[2]!=temp->nom_prenom[2])&&(cell->nom_prenom[1]==temp->nom_prenom[1])&&(cell->nom_prenom[0]==temp->nom_prenom[0])){
-        control=1;
-            while((temp->next->cells[0]!=NULL)&&(cell->nom_prenom[2]>temp->next->cells[0]->nom_prenom[2])){
-                temp=temp->next->cells[0];
-            }
+        for(int i=0;i<3;i++){
+            cell->next->cells[i]=temp->next->cells[i];
+            temp->next->cells[i]=cell;
+        }
+        return;
+    }else if(cell->nom_prenom[2]!=temp->nom_prenom[2]){
+        while ((cell->nom_prenom[2]<temp->nom_prenom[2])&&(temp!=NULL)){
+            temp=temp->next->cells[0];
+        }
+        for(int i=0;i<2;i++){
+            cell->next->cells[i]=temp->next->cells[i];
+            temp->next->cells[i]=cell;
+        }
+        return;
+    }else{
+        cell->next->cells[0]=temp->next->cells[0];
+        temp->next->cells[0]=cell;
     }
-    cell->next->cells[0]=temp->next->cells[0];
-    temp->next->cells[0]=cell;
-    cell->next->cells[control]=temp->next->cells[control];
-    temp->next->cells[control]=cell;
+    }
 
 
 
-}
+
+
 
 // affichage d'un niveau de la List simplement
-void displayOneLevelOfListSimply(List *list, int level) {
+void displayOneLevelOfListSimplyInt(List *list, int level) {
     if (level >= 0 && level < list->heads->nbLevel) {
         printf("[list head_%d @-]", level);
         Cell *cell = list->heads->cells[level];
         while (cell != NULL) {
-            printf("-->[ %s|@-]", cell->nom_prenom);
+            printf("-->[ %d|@-]", cell->value);
             cell = cell->next->cells[level];
         }
         printf("-->NULL\n");
@@ -105,9 +116,9 @@ void displayOneLevelOfListAligned(List *list, int level) {
 }
 
 // affichage de la List simplement
-void displayListSimply(List *list) {
+void displayListSimplyInt(List *list) {
     for (int i = 0; i < list->heads->nbLevel; i++) {
-        displayOneLevelOfListSimply(list, i);
+        displayOneLevelOfListSimplyInt(list, i);
     }
 }
 
@@ -147,4 +158,20 @@ void deleteList(List *list) {
     }
     free(list->heads);
     free(list);
+}
+
+void functionMain(){
+    List *list = createList(4);
+    printf("Pour la premiere partie les prenoms ne sont pas important \n");
+    Cell *cell0 = createCell(4, 2);
+    Cell *cell1 = createCell(4, 3);
+    Cell *cell2 = createCell(4, 1);
+    insertCellInListCresently(cell0, list);
+    insertCellInListCresently(cell1, list);
+    insertCellInListCresently(cell2, list);
+    displayListSimplyInt(list);
+    deleteCell(cell0);
+    deleteCell(cell1);
+    deleteCell(cell2);
+    deleteList(list);
 }

@@ -3,24 +3,45 @@
 //
 
 #include "Meeting.h"
+
 Meeting *createMeeting(){
     Meeting *temp=(Meeting*) malloc(sizeof (Meeting));
-    printf("entrez le jour du rdv\n");
-    temp->jour=scanInt();
-    printf("entrez le mois du rdv\n");
-    temp->mois=scanInt();
-    printf("entrez le l'annee du rdv\n");
-    temp->annee= scanInt();
-    printf("entrez le l'heure du rdv\n");
-    temp->heure=scanInt();
-    printf("entrez la minute du rdv\n");
-    temp->minute=scanInt();
-    printf("entrez la duree en heure du rdv\n");
-    temp->heureDuree=scanInt();
-    printf("entrez la duree en minute du rdv\n");
-    temp->minuteDuree=scanInt();
+    do {
+        printf("entrez le jour du rdv\n");
+        temp->jour = scanInt();
+    }while( temp->jour >= 31 );
+
+    do{
+        printf("entrez le mois du rdv\n");
+        temp->mois=scanInt();
+    }while(temp->mois>12);
+
+    do{
+        printf("entrez le l'annee du rdv\n");
+        temp->annee= scanInt();
+    }while(temp->annee<2023);
+
+    do{
+        printf("entrez le l'heure du rdv\n");
+        temp->heure=scanInt();
+    }while(temp->heure>23);
+
+    do{printf("entrez la minute du rdv\n");
+        temp->minute=scanInt();
+    }while(temp->minute>59);
+
+    do{printf("entrez la duree en heure du rdv\n");
+        temp->heureDuree=scanInt();
+    }while(temp->heureDuree<0);
+
+    do{
+        printf("entrez la duree en minute du rdv\n");
+        temp->minuteDuree=scanInt();
+    } while (temp->minuteDuree>59);
+
     printf("entrez l'objet du rdv");
     scanString(temp->objet);
+
     temp->next=NULL;
     return temp;
 }
